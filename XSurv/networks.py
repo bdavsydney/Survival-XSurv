@@ -208,7 +208,7 @@ class Diverging_decoder(nn.Module):
         self.upsample_8 = nn.Upsample(scale_factor=2, mode='nearest')
         self.upsample_9 = nn.Upsample(scale_factor=2, mode='nearest')
         
-        self.atten_gate_6 = Region_Atten_block(in_channels*8, in_channels*16, channel_num*8)
+        self.atten_gate_6 = Region_Atten_block(in_channels*8, channel_num*16, channel_num*8)
         self.atten_gate_7 = Region_Atten_block(in_channels*4, channel_num*8, channel_num*4)
         self.atten_gate_8 = Region_Atten_block(in_channels*2, channel_num*4, channel_num*2)
         self.atten_gate_9 = Region_Atten_block(in_channels, channel_num*2, channel_num)
@@ -231,7 +231,7 @@ class Diverging_decoder(nn.Module):
         x = torch.cat([x_gate_PT, x_up_PT], dim=1)
         x_PT_6 = self.decoder_PT_6(x)
         x = torch.cat([x_gate_MLN, x_up_MLN], dim=1)
-        x_MLN_6 = self.decoder_MLNN_6(x)
+        x_MLN_6 = self.decoder_MLN_6(x)
     
         # upsample 1/4 scale
         x_gate_PT, x_gate_MLN = self.atten_gate_7(x_3, x_PT_6, x_MLN_6)
